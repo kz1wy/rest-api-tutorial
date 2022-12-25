@@ -1,4 +1,5 @@
 import express from "express";
+import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 
@@ -22,8 +23,11 @@ router.get('/',(req, res) =>{
 
 router.post('/', (req, res) => {
     const user = req.body;
-    users.push(user);
-    res.send(`User name ${user.firstName} is added to the Users database!`)
+
+    const userId = uuidv4();
+    const userWithId = { ...user, id: userId}
+    users.push(userWithId);
+    res.send(`User name ${user.lastName} is added to the Users database!`)
 });
 
 export default router;
